@@ -1,7 +1,15 @@
 package me.mm.sky.urlopen.mmui
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.view.WindowInsets
+import android.view.WindowMetrics
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import me.mm.sky.urlopen.MainActivity
 import me.mm.sky.urlopen.database.NfcCard
 
+@SuppressLint("ScheduleExactAlarm")
 @Composable
 fun CardItem(
     card: NfcCard,
@@ -86,6 +95,7 @@ fun CardItem(
                         val dataUri =
                             Uri.parse(card.url)
                         intent.setData(dataUri)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         if (card.packageName != "") {
                             intent.setPackage(card.packageName)
                         }
